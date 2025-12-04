@@ -1,114 +1,606 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Style 8-BIT Gaming - Gros pixels */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
 
+body {
+    background-color: #2a1c42;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+    color: #ffffff;
+    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fond pixelisé */
+.pixel-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, #1a0f2a 2px, transparent 2px) 0 0 / 20px 20px,
+        linear-gradient(180deg, #1a0f2a 2px, transparent 2px) 0 0 / 20px 20px,
+        linear-gradient(45deg, transparent 49%, #3d2a5c 49%, #3d2a5c 51%, transparent 51%) 0 0 / 40px 40px;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* Grille de pixels */
+.pixel-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 8px 8px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Titre principal */
+.pixel-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #ff3366;
+    text-shadow: 
+        4px 4px 0 #000000,
+        8px 8px 0 #6600cc;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    line-height: 1.4;
+    font-family: 'Courier New', monospace;
+    animation: titleGlitch 3s infinite;
+    position: relative;
+    z-index: 1;
+}
+
+.subtitle {
+    display: block;
+    font-size: 20px;
+    color: #00ffff;
+    text-shadow: 
+        3px 3px 0 #000000,
+        6px 6px 0 #0066cc;
+    margin-top: 10px;
+    letter-spacing: 3px;
+}
+
+.pixel-block {
+    display: inline-block;
+    color: #ffff00;
+    animation: pixelBlink 1s infinite;
+    margin: 0 5px;
+}
+
+/* Overlay */
 .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.75);
-  z-index: 9999;
-  font-family: "Press Start 2P", monospace;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
 }
 
-/* AJOUT : tout pixelisé */
-.popup-box * {
-  font-family: "Press Start 2P", monospace !important;
-  letter-spacing: 1px;
-}
-
-/* Boîte façon parchemin gaulois */
+/* Boîte du pop-up style 8-bit */
 .popup-box {
-  background: #f8e3b0;
-  border: 5px solid #8b4513;
-  padding: 30px;
-  width: 420px;
-  max-width: 90%;
-  text-align: center;
-  box-shadow: 0 0 25px #ffd700;
-  position: relative;
-  animation: pop-gaulois 0.35s ease-out;
+    background: #0a0a1a;
+    border: 8px solid #00ffff;
+    padding: 60px 40px 40px;
+    width: 550px;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 
+        0 0 0 4px #ff3366,
+        0 0 0 8px #6600cc,
+        0 0 30px rgba(0, 255, 255, 0.7),
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
+    animation: pixelPop 0.6s steps(4) forwards;
+    image-rendering: pixelated;
 }
 
-/* Contour décoratif rappelant un bouclier gaulois */
-.popup-box::before {
-  content: "";
-  position: absolute;
-  inset: -10px;
-  border: 4px dashed #d62828;
-  border-radius: 12px;
-  pointer-events: none;
+/* Bordures pixelisées */
+.pixel-border {
+    position: absolute;
+    inset: -4px;
+    border: 4px dashed #ffff00;
+    pointer-events: none;
+    animation: borderFlash 2s infinite;
 }
 
-/* Texte */
+/* Icônes dans les coins */
+.corner-icon {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    border: 4px solid;
+    z-index: 10;
+    animation: iconFloat 3s infinite ease-in-out;
+}
+
+.top-left {
+    top: -35px;
+    left: -35px;
+    border-color: #ff3366;
+    transform: rotate(-5deg);
+}
+
+.top-right {
+    top: -35px;
+    right: -35px;
+    border-color: #00ffff;
+    transform: rotate(5deg);
+}
+
+.bottom-left {
+    bottom: -35px;
+    left: -35px;
+    border-color: #ffff00;
+    transform: rotate(5deg);
+}
+
+.bottom-right {
+    bottom: -35px;
+    right: -35px;
+    border-color: #ff9900;
+    transform: rotate(-5deg);
+}
+
+/* Style des icônes */
+.sword-pixel {
+    font-size: 40px;
+    color: #cccccc;
+    text-shadow: 
+        3px 3px 0 #666666,
+        0 0 10px #ffffff;
+    animation: swordSwing 2s infinite alternate;
+    filter: drop-shadow(0 0 5px #ff3366);
+}
+
+.helmet-pixel {
+    font-size: 40px;
+    color: #ffcc00;
+    text-shadow: 
+        3px 3px 0 #996600,
+        0 0 10px #ffff00;
+    animation: helmetSpin 4s infinite linear;
+    filter: drop-shadow(0 0 5px #ffff00);
+}
+
+.shield-pixel {
+    font-size: 40px;
+    color: #ff3366;
+    text-shadow: 
+        3px 3px 0 #990033,
+        0 0 10px #ff3366;
+    animation: shieldPulse 2s infinite alternate;
+    filter: drop-shadow(0 0 5px #ff3366);
+}
+
+/* Groupe de combat */
+.fighting-group {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.gaulois-pixel {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: #00cc00;
+    top: 10px;
+    left: 5px;
+    animation: gauloisMove 1s infinite alternate;
+    box-shadow: 2px 2px 0 #006600;
+}
+
+.gaulois-pixel::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffcc00;
+    top: -8px;
+    left: 5px;
+    box-shadow: 1px 1px 0 #996600;
+}
+
+.romain-pixel {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: #cc0000;
+    top: 10px;
+    right: 5px;
+    animation: romainMove 1s infinite alternate-reverse;
+    box-shadow: 2px 2px 0 #660000;
+}
+
+.romain-pixel::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #999999;
+    top: -8px;
+    left: 5px;
+    box-shadow: 1px 1px 0 #666666;
+}
+
+.punch-effect {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffff00;
+    top: 20px;
+    left: 25px;
+    animation: punchFlash 0.5s infinite;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffff00;
+}
+
+/* Textes pixélisés */
+.pixel-text {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 1.6;
+    text-shadow: 
+        2px 2px 0 #000000,
+        4px 4px 0 #6600cc;
+    image-rendering: pixelated;
+}
+
 .popup-box h2 {
-  color: #1c1c1c;
-  font-size: 18px;
-  margin-bottom: 15px;
-  text-shadow: 2px 2px #ffd700;
+    font-size: 20px;
+    color: #00ffff;
+    margin-bottom: 25px;
+    animation: textGlitch 5s infinite;
+    position: relative;
 }
 
-.popup-box p {
-  color: #3a2f17;
-  font-size: 12px;
-  line-height: 1.6;
+.message-box {
+    background: rgba(0, 0, 51, 0.7);
+    border: 4px solid #6600cc;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
 }
 
-/* Bouton potion magique */
-.popup-box button {
-  margin-top: 18px;
-  padding: 10px 25px;
-  background: #ffd700;
-  border: 3px solid #8b4513;
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.2s;
+.message-box p {
+    font-size: 14px;
+    color: #ffff00;
+    margin: 10px 0;
+    animation: lineTyping 0.5s steps(20) forwards;
+    opacity: 0;
 }
 
-.popup-box button:hover {
-  background: #ffeb7a;
-  transform: scale(1.1);
+.message-box p:nth-child(1) { animation-delay: 0.3s; }
+.message-box p:nth-child(2) { animation-delay: 0.6s; }
+.message-box p:nth-child(3) { animation-delay: 0.9s; }
+
+/* Boutons */
+.pixel-btn {
+    margin: 20px;
+    padding: 20px 40px;
+    background: #ff3366;
+    color: #ffffff;
+    border: 6px solid #000000;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    animation: btnScan 2s infinite linear;
+    box-shadow: 
+        8px 8px 0 #6600cc,
+        12px 12px 0 #000000;
+    transition: all 0.1s;
+    text-shadow: 
+        2px 2px 0 #000000,
+        4px 4px 0 #6600cc;
 }
 
-/* Effet poussière (Panoramix magic ✨) */
-.gaulois-dust {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, #fff5 0%, transparent 70%);
-  top: -20px;
-  right: -20px;
-  border-radius: 50%;
-  animation: dust 2s infinite ease-in-out;
-  pointer-events: none;
+.pixel-btn:hover {
+    background: #ff6699;
+    transform: translate(4px, 4px);
+    box-shadow: 
+        4px 4px 0 #6600cc,
+        8px 8px 0 #000000;
+    animation: none;
+}
+
+.pixel-btn:active {
+    transform: translate(8px, 8px);
+    box-shadow: 
+        0px 0px 0 #6600cc,
+        4px 4px 0 #000000;
+}
+
+.pixel-action-btn {
+    margin-top: 25px;
+    padding: 15px 30px;
+    background: #00cc00;
+    border: 5px solid #000000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    text-shadow: 
+        2px 2px 0 #000000,
+        4px 4px 0 #006600;
+    box-shadow: 
+        6px 6px 0 #006600,
+        10px 10px 0 #000000;
+    transition: all 0.1s;
+    animation: actionBtnPulse 1s infinite alternate;
+}
+
+.pixel-action-btn:hover {
+    background: #00ff00;
+    transform: translate(3px, 3px);
+    box-shadow: 
+        3px 3px 0 #006600,
+        7px 7px 0 #000000;
+}
+
+.pixel-action-btn:active {
+    transform: translate(6px, 6px);
+    box-shadow: 
+        0px 0px 0 #006600,
+        4px 4px 0 #000000;
 }
 
 /* Animations */
-@keyframes pop-gaulois {
-  0% { transform: scale(0.6); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes pixelPop {
+    0% { transform: scale(0.1); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes dust {
-  0% { opacity: 0; transform: scale(0.4); }
-  50% { opacity: 0.8; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.4); }
+@keyframes titleGlitch {
+    0%, 100% { transform: translate(0, 0); }
+    92% { transform: translate(-2px, -2px); }
+    94% { transform: translate(2px, 2px); }
+    96% { transform: translate(-2px, 2px); }
+    98% { transform: translate(2px, -2px); }
 }
 
-/* Bouton test */
-.test-btn {
-  margin: 40px;
-  background: #0044cc;
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  font-size: 12px;
-  cursor: pointer;
+@keyframes borderFlash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
-.test-btn:hover {
-  background: #3366ff;
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes swordSwing {
+    0% { transform: rotate(-30deg) scale(1); }
+    100% { transform: rotate(30deg) scale(1.2); }
+}
+
+@keyframes helmetSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shieldPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.3); }
+}
+
+@keyframes gauloisMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(5px); }
+}
+
+@keyframes romainMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-5px); }
+}
+
+@keyframes punchFlash {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes textGlitch {
+    0%, 100% { 
+        text-shadow: 
+            2px 2px 0 #000000,
+            4px 4px 0 #6600cc;
+    }
+    95% { 
+        text-shadow: 
+            2px 2px 0 #ff3366,
+            4px 4px 0 #6600cc,
+            0 0 10px #00ffff;
+    }
+}
+
+@keyframes lineTyping {
+    0% { width: 0; opacity: 0; }
+    100% { width: 100%; opacity: 1; }
+}
+
+@keyframes btnScan {
+    0% { box-shadow: 
+        8px 8px 0 #6600cc,
+        12px 12px 0 #000000,
+        0 0 0 rgba(0, 255, 255, 0); }
+    50% { box-shadow: 
+        8px 8px 0 #6600cc,
+        12px 12px 0 #000000,
+        0 0 20px rgba(0, 255, 255, 0.7); }
+    100% { box-shadow: 
+        8px 8px 0 #6600cc,
+        12px 12px 0 #000000,
+        0 0 0 rgba(0, 255, 255, 0); }
+}
+
+@keyframes actionBtnPulse {
+    0% { box-shadow: 
+        6px 6px 0 #006600,
+        10px 10px 0 #000000; }
+    100% { box-shadow: 
+        6px 6px 0 #006600,
+        10px 10px 0 #000000,
+        0 0 15px #00ff00; }
+}
+
+@keyframes pixelBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes statPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .pixel-title {
+        font-size: 24px;
+        text-shadow: 
+            3px 3px 0 #000000,
+            6px 6px 0 #6600cc;
+    }
+    
+    .subtitle {
+        font-size: 16px;
+    }
+    
+    .popup-box {
+        padding: 40px 20px 20px;
+        width: 95%;
+    }
+    
+    .popup-box h2 {
+        font-size: 16px;
+    }
+    
+    .message-box p {
+        font-size: 12px;
+    }
+    
+    .corner-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .top-left, .top-right {
+        top: -25px;
+    }
+    
+    .top-left { left: -25px; }
+    .top-right { right: -25px; }
+    
+    .bottom-left, .bottom-right {
+        bottom: -25px;
+    }
+    
+    .bottom-left { left: -25px; }
+    .bottom-right { right: -25px; }
+    
+    .sword-pixel,
+    .helmet-pixel,
+    .shield-pixel {
+        font-size: 30px;
+    }
+    
+    .fighting-group {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .pixel-btn {
+        font-size: 14px;
+        padding: 15px 30px;
+    }
+}
+/* --- ICÔNES PIXEL ART DANS LES COINS --- */
+
+/* Épée 8-bit */
+.top-left i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url('icons-pixel/sword.png') no-repeat center/contain;
+    font-size: 0; /* cache l'icône FA */
+}
+
+/* Casque romain 8-bit */
+.top-right i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url('icons-pixel/helmet.png') no-repeat center/contain;
+    font-size: 0;
+}
+
+/* Bouclier gaulois 8-bit */
+.bottom-left i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url('icons-pixel/shield.png') no-repeat center/contain;
+    font-size: 0;
+}
+
+/* Combat Gaulois vs Romain 8-bit */
+.bottom-right i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url('icons-pixel/sword.png') no-repeat center/contain;
+    font-size: 0;
+}
+/* Animation rotation pixelisée */
+@keyframes pixel-spin {
+    0% { transform: rotate(0deg); image-rendering: pixelated; }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Appliquer l'animation aux icônes */
+.corner-icon i,
+.corner-icon .gaulois-pixel,
+.corner-icon .romain-pixel,
+.corner-icon .shield-pixel,
+.corner-icon .helmet-pixel,
+.corner-icon .sword-pixel {
+    animation: pixel-spin 0.35s steps(2) infinite;
 }

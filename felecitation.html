@@ -1,27 +1,118 @@
-<link rel="stylesheet" href="felicitation.css">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-BIT GAULOIS BATTLE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="felicitation.css">
+</head>
 
-<!-- Bouton test -->
-<button onclick="openPopup()" class="test-btn">Tester le pop-up</button>
+<body>
 
-<div class="popup" id="popup-felicitation">
-  <div class="popup-box">
+    <div class="pixel-bg"></div>
     
-    <!-- Effet de poussière magique -->
-    <div class="gaulois-dust"></div>
+    <h1 class="pixel-title">
+        <span class="pixel-block">░▒▓</span>
+        POP-UP 8-BIT
+        <span class="pixel-block">▓▒░</span><br>
+        <span class="subtitle">ASTÉRIX VS ROMAINS</span>
+    </h1>
 
-    <h2>★ Mission accomplie, Héros Gaulois ! ★</h2>
-    <p>Tu as libéré le village NIRD</p>
-    <p>Encore un pas vers l’indépendance !</p>
+    <button class="pixel-btn" onclick="openPopup()">
+        <span class="pixel-block">▶</span> DÉMARRER LE COMBAT
+    </button>
 
-    <button onclick="closePopup()">Défendre encore !</button>
-  </div>
-</div>
+    <div class="popup" id="popup-felicitation">
+        <div class="popup-box">
+            <!-- Icône épée en haut à gauche -->
+            <div class="corner-icon top-left">
+                <i class="fa-solid fa-sword sword-pixel"></i>
+            </div>
+            
+            <!-- Icône casque en haut à droite -->
+            <div class="corner-icon top-right">
+                <i class="fa-solid fa-helmet-safety helmet-pixel"></i>
+            </div>
+            
+            <!-- Icône bouclier en bas à gauche -->
+            <div class="corner-icon bottom-left">
+                <i class="fa-solid fa-shield-halved shield-pixel"></i>
+            </div>
+            
+            <!-- Groupe de quartiers qui se disputent en bas à droite -->
+            <div class="corner-icon bottom-right">
+                <div class="fighting-group">
+                    <div class="gaulois-pixel"></div>
+                    <div class="romain-pixel"></div>
+                    <div class="punch-effect"></div>
+                </div>
+            </div>
+            
+            <!-- Contenu principal -->
+            <h2 class="pixel-text">★ VICTOIRE GAULOISE ★</h2>
+            
+            <div class="message-box">
+                <p class="pixel-text">Tu as libéré le village NIRD.</p>
+                <p class="pixel-text">Encore un pas vers l’indépendance !</p>
+            </div>
+          
+            <button onclick="closePopup()" class="pixel-action-btn">
+                <span class="pixel-block">↻</span> Défendre encore !
+            </button>
+            
+            <div class="pixel-border"></div>
+        </div>
+    </div>
 
-<script>
-function openPopup() {
-  document.getElementById("popup-felicitation").style.display = "flex";
-}
-function closePopup() {
-  document.getElementById("popup-felicitation").style.display = "none";
-}
-</script>
+    <div class="pixel-grid"></div>
+    
+    <script>
+        function openPopup() {
+            document.getElementById("popup-felicitation").style.display = "flex";
+            // Son 8-bit
+            playBeep();
+        }
+        
+        function closePopup() {
+            document.getElementById("popup-felicitation").style.display = "none";
+        }
+        
+        document.getElementById("popup-felicitation").addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+        
+        function playBeep() {
+            // Simulation son 8-bit
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'square';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+        }
+        
+        // Animation des icônes
+        document.querySelectorAll('.corner-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.3)';
+            });
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+</body>
+</html>
