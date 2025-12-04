@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="felicitation.css">
+
+<!-- Bouton test -->
+<button onclick="openPopup()" class="test-btn">Tester le pop-up</button>
+
+<div class="popup" id="popup-felicitation">
+  <div class="popup-box">
+    
+    <!-- Effet de poussière magique -->
+    <div class="gaulois-dust"></div>
+
+    <h2>★ Mission accomplie, Héros Gaulois ! ★</h2>
+    <p>Tu as libéré le village NIRD</p>
+    <p>Encore un pas vers l’indépendance !</p>
+
+    <button onclick="closePopup()">Défendre encore !</button>
+  </div>
+</div>
+
+<script>
+function openPopup() {
+  document.getElementById("popup-felicitation").style.display = "flex";
+}
+function closePopup() {
+  document.getElementById("popup-felicitation").style.display = "none";
+}
+</script>
